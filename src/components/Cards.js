@@ -59,9 +59,9 @@ const Cards = () => {
         return (
           <div
             key={i}
-            className=" flex flex-col card font-medium shadow-lg p-2 mt-5 transition all delay-500 hover:-translate-y-1 hover:scale-110 cursor-pointer "
+            className=" flex flex-col card font-medium bg-[#353b48] rounded-lg shadow-lg p-2 mr-1 mt-5 transition all delay-500 hover:-translate-y-1 hover:scale-110 cursor-pointer "
           >
-            <img className="h-60 md:h-72 rounded" src={e.img} alt="" />
+            <img className="h-60 md:h-72 rounded-lg" src={e.img} alt="" />
             <h1>
               <span className="text-[#8d9db3]">Name:</span> {e.name}
             </h1>
