@@ -1,80 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 import ReactStars from "react-stars";
+import { getDocs } from "firebase/firestore";
+import { moviesRef } from "../firebase/firebase";
 
 const Cards = () => {
-  const [data, setData] = useState([
-    {
-      name: "Avengers Endgame",
-      year: "2018",
-      rating: 5,
-      img: "https://m.media-amazon.com/images/I/71niXI3lxlL._SY741_.jpg",
-    },
-    {
-      name: "Avengers Infinity War",
-      year: "2019",
-      rating: 5,
-      img: "https://m.media-amazon.com/images/I/91fK1KIv66L._SX466_.jpg",
-    },
-    {
-      name: "Dora ",
-      year: "2019",
-      rating: 5,
-      img: "https://cdn.shopify.com/s/files/1/0969/9128/products/Dora_The_Explorer_And_The_Lost_City_Of_Gold_-_Hollywood_English_Movie_Poster_1_66c87e56-24a2-4135-b709-a6b98a7f7bce_large.jpg?v=1577693664",
-    },
-    {
-      name: "Harry Potter",
-      year: "2007",
-      rating: 5,
-      img: "https://m.media-amazon.com/images/I/71x1RHSaEhL._AC_SY679_.jpg",
-    },
-    {
-      name: "Alladin",
-      year: "2019",
-      rating: 4.5,
-      img: "https://m.media-amazon.com/images/I/51HWM75aa2L._AC_SY580_.jpg",
-    },
-    {
-      name: "Dora ",
-      year: "2019",
-      rating: 3.5,
-      img: "https://cdn.shopify.com/s/files/1/0969/9128/products/Dora_The_Explorer_And_The_Lost_City_Of_Gold_-_Hollywood_English_Movie_Poster_1_66c87e56-24a2-4135-b709-a6b98a7f7bce_large.jpg?v=1577693664",
-    },
-    {
-      name: "Harry Potter",
-      year: "2007",
-      rating: 5,
-      img: "https://m.media-amazon.com/images/I/71x1RHSaEhL._AC_SY679_.jpg",
-    },
-    {
-      name: "Alladin",
-      year: "2019",
-      rating: 5,
-      img: "https://m.media-amazon.com/images/I/51HWM75aa2L._AC_SY580_.jpg",
-    },
-  ]);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function getData() {
+      setLoading(true);
+      const _data = await getDocs(moviesRef);
+      // console.log(_data);
+      _data.forEach((doc) => {
+        setData((prev) => [...prev, { ...doc.data(), id: doc.id }]);
+      });
+
+      setLoading(false);
+    }
+    getData();
+  }, []);
 
   return (
     <div className="flex flex-wrap  justify-center p-3 mt-2">
-      {data.map((e, i) => {
-        return (
-          <div
-            key={i}
-            className=" flex flex-col card font-medium bg-[#353b48] rounded-lg shadow-lg p-2 mr-1 mt-5 transition all delay-500 hover:-translate-y-1 hover:scale-110 cursor-pointer "
-          >
-            <img className="h-60 md:h-72 rounded-lg" src={e.img} alt="" />
-            <h1>
-              <span className="text-[#8d9db3]">Name:</span> {e.name}
-            </h1>
-            <h1 className="flex items-center">
-              <span className="text-[#8d9db3] mr-1">Rating:</span>
-              <ReactStars size={20} half={true} value={e.rating} edit={false} />
-            </h1>
-            <h1>
-              <span className="text-[#8d9db3]">Year:</span> {e.year}
-            </h1>
-          </div>
-        );
-      })}
+      {loading ? (
+        <div className=" grid   place-items-center w-screen h-screen ">
+          <ThreeDots />
+        </div>
+      ) : (
+        data.map((e, i) => {
+          return (
+            <div
+              key={i}
+              className=" flex flex-col card font-medium bg-[#353b48] rounded-lg shadow-lg p-2 mr-1 mt-5 transition all delay-500 hover:-translate-y-1 hover:scale-110 cursor-pointer "
+            >
+              <img className="h-60 md:h-72 rounded-lg" src={e.image} alt="" />
+              <h1>
+                <span className="text-[#8d9db3]">Name:</span> {e.title}
+              </h1>
+              <h1 className="flex items-center">
+                <span className="text-[#8d9db3] mr-1">Rating:</span>
+                <ReactStars size={20} half={true} value={5} edit={false} />
+              </h1>
+              <h1>
+                <span className="text-[#8d9db3]">Year:</span> {e.year}
+              </h1>
+            </div>
+          );
+        })
+      )}
     </div>
   );
 };
