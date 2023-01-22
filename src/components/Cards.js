@@ -3,6 +3,7 @@ import { ThreeDots } from "react-loader-spinner";
 import ReactStars from "react-stars";
 import { getDocs } from "firebase/firestore";
 import { moviesRef } from "../firebase/firebase";
+import { Link } from "react-router-dom";
 
 const Cards = () => {
   const [data, setData] = useState([]);
@@ -25,28 +26,39 @@ const Cards = () => {
   return (
     <div className="flex flex-wrap  justify-center p-3 mt-2">
       {loading ? (
-        <div className=" grid   place-items-center w-screen h-screen ">
+        <div className=" h-96 flex w-full justify-center items-center ">
           <ThreeDots />
         </div>
       ) : (
         data.map((e, i) => {
           return (
-            <div
-              key={i}
-              className=" flex flex-col card font-medium bg-[#353b48] rounded-lg shadow-lg p-2 mr-1 mt-5 transition all delay-500 hover:-translate-y-1 hover:scale-110 cursor-pointer "
-            >
-              <img className="h-60 md:h-72 rounded-lg" src={e.image} alt="" />
-              <h1>
-                <span className="text-[#8d9db3]">Name:</span> {e.title}
-              </h1>
-              <h1 className="flex items-center">
-                <span className="text-[#8d9db3] mr-1">Rating:</span>
-                <ReactStars size={20} half={true} value={5} edit={false} />
-              </h1>
-              <h1>
-                <span className="text-[#8d9db3]">Year:</span> {e.year}
-              </h1>
-            </div>
+            <Link to={`/detail/${e.id}`}>
+              <div
+                key={i}
+                className="text-xs md:text-base flex flex-col card font-medium bg-[#353b48] rounded-lg shadow-lg p-1 md:p-2 mr-0.5 mt-5 transition all delay-500 hover:-translate-y-1 hover:scale-110 cursor-pointer "
+              >
+                <img
+                  className=" h-56 md:h-72  rounded-lg"
+                  src={e.image}
+                  alt=""
+                />
+                <h1>
+                  <span className="text-[#8d9db3]  ">Name:</span> {e.title}
+                </h1>
+                <h1 className="flex items-center">
+                  <span className="text-[#8d9db3] mr-1">Rating:</span>
+                  <ReactStars
+                    size={20}
+                    half={true}
+                    value={e.rating / e.rated}
+                    edit={false}
+                  />
+                </h1>
+                <h1>
+                  <span className="text-[#8d9db3]">Year:</span> {e.year}
+                </h1>
+              </div>
+            </Link>
           );
         })
       )}

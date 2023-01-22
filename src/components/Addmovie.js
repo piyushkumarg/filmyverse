@@ -8,8 +8,10 @@ const Addmovie = () => {
   const [form, setForm] = useState({
     title: "",
     year: "",
-    desciption: "",
+    description: "",
     image: "",
+    rated: 0,
+    rating: 0,
   });
 
   const [loading, setLoading] = useState(false);
@@ -19,10 +21,16 @@ const Addmovie = () => {
     try {
       await addDoc(moviesRef, form);
       swal({
-        title: "Successfuly Addes",
+        title: "Successfully Added",
         icon: "success",
         buttons: false,
         timer: 3000,
+      });
+      setForm({
+        title: "",
+        year: "",
+        description: "",
+        image: "",
       });
     } catch (err) {
       swal({
@@ -112,11 +120,11 @@ const Addmovie = () => {
                     Descriptions
                   </label>
                   <textarea
-                    value={form.desciption}
+                    value={form.description}
                     onChange={(e) =>
                       setForm({
                         ...form,
-                        desciption: e.target.value,
+                        description: e.target.value,
                       })
                     }
                     className="w-full  rounded border border-gray-300 focus:border-indigo-500 focus:bg-[#f5f6fa] focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
