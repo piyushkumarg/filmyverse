@@ -27,22 +27,22 @@ const Header = () => {
           </div>
         </Link>
 
-        {useAppstate.login ? (
-          <Link to={"/signin"}>
-            <div className="  bg-[#4cd137] border-0 px-1 md:px-4 focus:outline-none hover:bg-[#44bd32] rounded-xl ml-2">
-              <Button>
-                <span className="text-[#f5f6fa] text-sm md:text-base font-medium capitalize">
-                  Sign In
-                </span>
-              </Button>
-            </div>
-          </Link>
-        ) : (
+        {useAppstate.signin ? (
           <Link to={"/"}>
             <div className="  bg-[#4cd137] border-0 px-1 md:px-4 focus:outline-none hover:bg-[#44bd32] rounded-xl ml-2">
               <Button>
                 <span className="text-[#f5f6fa] text-sm md:text-base font-medium capitalize">
                   Sign Out
+                </span>
+              </Button>
+            </div>
+          </Link>
+        ) : (
+          <Link to={"/signin"}>
+            <div className="  bg-[#4cd137] border-0 px-1 md:px-4 focus:outline-none hover:bg-[#44bd32] rounded-xl ml-2">
+              <Button>
+                <span className="text-[#f5f6fa] text-sm md:text-base font-medium capitalize">
+                  Sign In
                 </span>
               </Button>
             </div>

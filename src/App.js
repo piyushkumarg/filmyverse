@@ -7,6 +7,7 @@ import Signin from "./components/Signin";
 import Signup from "./components/Signup";
 import { createContext } from "react";
 import { useState } from "react";
+import Footer from "./components/Footer";
 
 const Appstate = createContext();
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
+        <Footer />
       </div>
     </Appstate.Provider>
   );
