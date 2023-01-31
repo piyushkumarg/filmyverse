@@ -22,6 +22,7 @@ const Reviews = ({ id, prevRating, userRated }) => {
   const [reviewsLoading, setReviewsLoading] = useState(false);
   const [form, setForm] = useState("");
   const [data, setData] = useState([]);
+  const [newAdded, setNewAdded] = useState(0);
 
   const sendReview = async () => {
     setLoading(true);
@@ -42,6 +43,7 @@ const Reviews = ({ id, prevRating, userRated }) => {
 
         setRating(0);
         setForm("");
+        setNewAdded(newAdded + 1);
 
         swal({
           title: "Review Added",
@@ -66,6 +68,7 @@ const Reviews = ({ id, prevRating, userRated }) => {
   useEffect(() => {
     async function getData() {
       setReviewsLoading(true);
+      setData([]);
       let quer = query(reviewsRef, where("movieid", "==", id));
       const querySnapshot = await getDocs(quer);
 
@@ -76,8 +79,8 @@ const Reviews = ({ id, prevRating, userRated }) => {
       setReviewsLoading(false);
     }
     getData();
-    console.log(data);
-  }, []);
+    // console.log(data);
+  }, [newAdded]);
 
   return (
     <div className="mt-2 w-full">
