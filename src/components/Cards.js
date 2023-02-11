@@ -26,7 +26,7 @@ const Cards = () => {
   return (
     <div className="flex flex-wrap  justify-center p-3 mt-2">
       {loading ? (
-        <div className=" h-96 flex w-full justify-center items-center ">
+        <div className=" h-96 flex justify-center items-center ">
           <ThreeDots />
         </div>
       ) : (
