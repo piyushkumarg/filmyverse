@@ -24,7 +24,7 @@ const Cards = () => {
   }, []);
 
   return (
-    <div className="flex flex-wrap  justify-center p-3 mt-2">
+    <div className="flex flex-wrap gap-4 justify-center  p-3 mt-2">
       {loading ? (
         <div className=" h-96 flex justify-center items-center ">
           <ThreeDots />
@@ -35,7 +35,7 @@ const Cards = () => {
             <Link to={`/detail/${e.id}`}>
               <div
                 key={i}
-                className="text-xs md:text-base flex flex-col card font-medium bg-[#353b48] rounded-lg shadow-lg p-1 md:p-2 mr-0.5 md:mr-2 mt-5 transition all delay-500 hover:-translate-y-1 hover:scale-105 cursor-pointer border-b-2 border-[#7f8fa6]  "
+                className="text-xs md:text-base w-[250px] flex flex-col  card font-medium bg-[#353b48] rounded-lg shadow-lg p-1 md:p-2 mr-0.5 md:mr-2 mt-5 transition all delay-500 hover:-translate-y-1 hover:scale-105 cursor-pointer border-b-2 border-[#7f8fa6]  "
               >
                 <img
                   className=" h-56 md:h-72  rounded-lg"
